@@ -198,7 +198,7 @@ function unzipjp () { unzip -O ms932 $@ }
 
 alias rsync="rsync -vzaP --inplace --append"
 function wcurl () {
-  if type -p wcurl &> /dev/null
+  if (( $+commands[wcurl] ))
   then
     command wcurl $@
   else
@@ -208,7 +208,7 @@ function wcurl () {
   fi
 }
 function wget () {
-  if type -p wget &> /dev/null
+  if (( $+commands[wget] ))
   then
     command wget $@
   else
@@ -231,7 +231,7 @@ alias egrep="egrep --color=always"
 alias fgrep="fgrep --color=always"
 alias diff="diff --color=always"
 
-if type -p vim &> /dev/null
+if (( $+commands[vim] ))
 then
   alias vi="vim"
 else
@@ -242,13 +242,13 @@ fi
 # Containers Support
 #
 
-if type -p docker &> /dev/null
+if (( $+commands[docker] ))
 then
   alias docker-compose="docker compose"
   function docker-run-here () { docker run -v $(pwd):$(pwd) -w $(pwd) $@ }
 fi
 
-if type -p podman &> /dev/null
+if (( $+commands[podman] ))
 then
   function podman-run-here () { podman run -v $(pwd):$(pwd) -w $(pwd) $@ }
 fi
@@ -263,7 +263,7 @@ then
   export PATH="$HOME/.local/bin:$PATH"
 fi
 
-if type -p python3 &> /dev/null
+if (( $+commands[python3] ))
 then
   export MANPATH="$HOME/.local/share/man:$MANPATH"
   alias python=python3
@@ -271,11 +271,11 @@ then
   alias pip=pip3
   alias wheel=wheel3
   alias idle=idle3
-  if type -p ipython3 &> /dev/null
+  if (( $+commands[ipython3] ))
   then
     alias ipython=ipython3
   fi
-  if (type -p pyenv || type $HOME/.pyenv/bin/pyenv) &> /dev/null
+  if (( $+commands[pyenv] )) || [[ -x $HOME/.pyenv/bin/pyenv ]]
   then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
@@ -301,9 +301,9 @@ then
   fi
 fi
 
-if type -p javac &> /dev/null
+if (( $+commands[javac] ))
 then
-  if [ -x /usr/libexec/java_home ]
+  if [[ -x /usr/libexec/java_home ]]
   then
     # macOS
     JAVA_HOME=$(/usr/libexec/java_home 2> /dev/null)
@@ -313,22 +313,22 @@ then
   fi
 fi
 
-if type -p rustc &> /dev/null || [ -d $HOME/.cargo/bin ]
+if [[ -d $HOME/.cargo/bin ]]
 then
   export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
-if type -p go &> /dev/null || [ -d $HOME/go/bin ]
+if [[ -d $HOME/go/bin ]]
 then
   export PATH="$HOME/go/bin:$PATH"
 fi
 
-if type -p cabal &> /dev/null || [ -d $HOME/.cabal/bin ]
+if [[ -d $HOME/.cabal/bin ]]
 then
   export PATH="$HOME/.cabal/bin:$PATH"
 fi
 
-if type -p opam &> /dev/null || [ -d $HOME/.opam/default/bin ]
+if [[ -d $HOME/.opam/default/bin ]]
 then
   export PATH="$HOME/.opam/default/bin:$PATH"
   alias opam-activate="eval $(opam env)"
@@ -355,19 +355,19 @@ esac
 case $OSTYPE in
 linux*)
   alias lll="ll --time-style '+%Y-%m-%d %H:%M:%S'"
-  if type -p xdg-open &> /dev/null
+  if (( $+commands[xdg-open] ))
   then
     alias open=xdg-open
-  elif type -p gnome-open &> /dev/null
+  elif (( $+commands[gnome-open] ))
   then
     alias open=gnome-open
   fi
-  if type -p wslview &> /dev/null
+  if (( $+commands[wslview] ))
   then
     alias open=wslview
   fi
 
-  if type -p xsel &> /dev/null
+  if (( $+commands[xsel] ))
   then
     alias pbcopy='xsel --clipboard --input'
     alias pbpaste='xsel --clipboard --output'
@@ -375,7 +375,7 @@ linux*)
     function pbpushd() { pwd | pbcopy; cd $@ }
     alias pbcd=pbpopd
   fi
-  if type -p wsl.exe &> /dev/null
+  if (( $+commands[wsl.exe] ))
   then
     function pbcopy() { cat | clip.exe }
     alias pbpaste='powershell.exe -c Get-Clipboard'
