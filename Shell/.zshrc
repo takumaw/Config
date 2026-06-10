@@ -111,7 +111,7 @@ setopt GLOB_COMPLETE
 unsetopt LIST_BEEP
 setopt LIST_PACKED
 setopt MARK_DIRS
-setopt MENU_COMPLETE
+unsetopt MENU_COMPLETE
 
 setopt EXTENDED_GLOB
 setopt MAGIC_EQUAL_SUBST
@@ -126,7 +126,7 @@ fi
 #autoload -U predict-on
 #predict-on
 
-zstyle ':completion:*' completer _expand _complete _ignored _match _prefix _list _history
+zstyle ':completion:*' completer _complete _ignored _prefix
 zstyle ':completion:*' description true
 zstyle ':completion:*' extra-verbose true
 zstyle ':completion:*' file-list true
@@ -134,6 +134,7 @@ zstyle ':completion:*' file-list true
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' rehash true
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
