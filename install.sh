@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Configs initializer
+# Config initializer
 #
 # See also: https://dotfiles.github.io/tutorials/
 #
