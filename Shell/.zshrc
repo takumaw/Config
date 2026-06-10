@@ -170,7 +170,7 @@ function chpwd() { ls --color=always }
 # Basic Commands Support
 #
 
-alias sudo='sudo -E ' # make aliases work with sudo
+alias sudo='sudo ' # make aliases work with sudo
 alias ps="ps -w"
 alias pp="ps -A -ww -o user,pid,stat,lstart,%cpu,%mem,vsz,rss,nice,class,tty,command"
 
