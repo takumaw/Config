@@ -301,16 +301,14 @@ then
   fi
 fi
 
-if (( $+commands[javac] ))
+if [[ -x /usr/libexec/java_home ]]
 then
-  if [[ -x /usr/libexec/java_home ]]
-  then
-    # macOS
-    JAVA_HOME=$(/usr/libexec/java_home 2> /dev/null)
-  else
-    # Linux
-    export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which javac))))
-  fi
+  _jdk_home=$(/usr/libexec/java_home 2> /dev/null)
+  [[ -n $_jdk_home ]] && export JAVA_HOME=$_jdk_home
+  unset _jdk_home
+elif (( $+commands[javac] ))
+then
+  export JAVA_HOME=${commands[javac]:A:h:h}
 fi
 
 if [[ -d $HOME/.cargo/bin ]]
