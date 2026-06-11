@@ -14,7 +14,8 @@ REPO_DIR=${PWD#"$HOME"/}
 cd "${HOME}"
 
 symlink() {
-    [[ -e "$2" || -L "$2" ]] || ln -s "$1" "$2"
+    [[ -e "$2" || -L "$2" ]] && rm "$2"
+    ln -s "$1" "$2"
 }
 
 # Create symlinks
@@ -31,4 +32,4 @@ find "${REPO_DIR}/SSH" -type d -exec chmod 700 {} +
 find "${REPO_DIR}/SSH" -type f -exec chmod 600 {} +
 
 mkdir -p .claude
-symlink "${REPO_DIR}/Claude/CLAUDE.md" .claude/CLAUDE.md
+symlink "../${REPO_DIR}/Agents/CLAUDE.md" .claude/CLAUDE.md
